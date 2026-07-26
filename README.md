@@ -1,280 +1,144 @@
-# Bank Database Application
+Bank Database Application
 
-## Overview
+Overview
 
 The Bank Database Application is a Java console program that allows users to create and manage bank accounts using a local SQLite database. The application demonstrates object-oriented programming concepts such as abstraction, inheritance, polymorphism, interfaces, composition, and database connectivity.
 
-Users can:
+Users can add new bank accounts, view all accounts, deposit money into an account, withdraw money from an account, and delete an account.
 
-* Add new bank accounts
-* View all accounts
-* Deposit money into an account
-* Withdraw money from an account
-* Delete an account
+All account data is stored in an SQLite database file named MikaylaDickerson.db.
 
-All account data is stored in an SQLite database file named `MikaylaDickerson.db`.
+Author
 
----
+Mikayla Dickerson
 
-## Author
-
-**Mikayla Dickerson**
 Date: May 3, 2026
 
----
+Features
 
-## Features
+The application allows users to create checking or savings accounts, store the account owner's name, balance, and account type, view all existing accounts, update balances with deposits and withdrawals, and delete accounts by ID.
 
-### Account Management
+It uses SQLite for persistent data storage and automatically creates the Accounts table if it does not already exist.
 
-* Create checking or savings accounts
-* Store account owner name, balance, and account type
-* View all existing accounts
-* Update balances with deposits and withdrawals
-* Delete accounts by ID
+The project demonstrates abstraction using the abstract Account class, inheritance with CheckingAccount and SavingsAccount, polymorphism through overridden methods and interface references, interfaces with BankOperations, composition with the Bank class containing a collection of accounts, and encapsulation using private fields and public getters.
 
-### Database Integration
+Project Structure
 
-* Uses SQLite for persistent data storage
-* Automatically creates the `Accounts` table if it does not exist
-
-### Object-Oriented Programming Concepts Demonstrated
-
-* **Abstraction** using the abstract `Account` class
-* **Inheritance** with `CheckingAccount` and `SavingsAccount`
-* **Polymorphism** through overridden methods and interface references
-* **Interfaces** with `BankOperations`
-* **Composition** with the `Bank` class containing a collection of accounts
-* **Encapsulation** using private fields and public getters
-
----
-
-## Project Structure
-
-```text
 4.2/
-├── App.java
-├── Account.java
-├── CheckingAccount.java
-├── SavingsAccount.java
-├── Bank.java
-├── BankOperations.java
-├── BankDB.java
-├── MikaylaDickerson.db
-├── lib/
-│   └── sqlite-jdbc-3.53.0.0.jar
-├── App.class
-├── Bank.class
-├── CheckingAccount.class
-└── SavingsAccount.class
-```
+App.java
+Account.java
+CheckingAccount.java
+SavingsAccount.java
+Bank.java
+BankOperations.java
+BankDB.java
+MikaylaDickerson.db
+lib/
+sqlite-jdbc-3.53.0.0.jar
+App.class
+Bank.class
+CheckingAccount.class
+SavingsAccount.class
 
----
+Class Descriptions
 
-## Class Descriptions
+App.java is the main program entry point. It displays the menu and handles user interaction.
 
-### App.java
+Account.java is the abstract base class for all account types. It contains the fields owner and balance. Its methods include deposit(), withdraw(), displayAccountInfo(), and the abstract method monthlyUpdate().
 
-The main program entry point. Displays the menu and handles user interaction.
+CheckingAccount.java extends Account and applies a monthly service fee of $10.
 
-### Account.java
+SavingsAccount.java extends Account and adds $25 in monthly interest.
 
-Abstract base class for all account types.
+BankOperations.java is an interface that defines the methods deposit(double amount) and withdraw(double amount).
 
-Fields:
+Bank.java demonstrates composition by maintaining an ArrayList<Account>.
 
-* `owner`
-* `balance`
+BankDB.java handles all SQLite database operations. Its methods include createTable(), addAccount(), getAllAccounts(), updateBalance(), and deleteAccount().
 
-Methods:
+Database Schema
 
-* `deposit()`
-* `withdraw()`
-* `displayAccountInfo()`
-* `monthlyUpdate()` (abstract)
+The Accounts table contains the following columns:
 
-### CheckingAccount.java
+id - INTEGER - Primary key with auto-increment
 
-Extends `Account`. Applies a monthly service fee of $10.
+owner - TEXT - Account owner's name
 
-### SavingsAccount.java
+balance - REAL - Current account balance
 
-Extends `Account`. Adds $25 in monthly interest.
+type - TEXT - Checking or Savings
 
-### BankOperations.java
+Requirements
 
-Interface defining:
+The project requires Java JDK 17 or later, the SQLite JDBC Driver (sqlite-jdbc-3.53.0.0.jar), and Visual Studio Code or another Java IDE.
 
-* `deposit(double amount)`
-* `withdraw(double amount)`
+How to Compile
 
-### Bank.java
+Windows Command Prompt or PowerShell:
 
-Demonstrates composition by maintaining an `ArrayList<Account>`.
-
-### BankDB.java
-
-Handles all SQLite database operations.
-
-Methods:
-
-* `createTable()`
-* `addAccount()`
-* `getAllAccounts()`
-* `updateBalance()`
-* `deleteAccount()`
-
----
-
-## Database Schema
-
-### Accounts Table
-
-| Column  | Type    | Description                 |
-| ------- | ------- | --------------------------- |
-| id      | INTEGER | Primary key, auto-increment |
-| owner   | TEXT    | Account owner's name        |
-| balance | REAL    | Current account balance     |
-| type    | TEXT    | Checking or Savings         |
-
----
-
-## Requirements
-
-### Software
-
-* Java JDK 17 or later
-* SQLite JDBC Driver (`sqlite-jdbc-3.53.0.0.jar`)
-* Visual Studio Code or another Java IDE
-
----
-
-## How to Compile
-
-### Windows Command Prompt
-
-```bash
 javac -cp ".;lib/sqlite-jdbc-3.53.0.0.jar" *.java
-```
 
-### PowerShell
+macOS/Linux:
 
-```powershell
-javac -cp ".;lib/sqlite-jdbc-3.53.0.0.jar" *.java
-```
-
-### macOS/Linux
-
-```bash
 javac -cp ".:lib/sqlite-jdbc-3.53.0.0.jar" *.java
-```
 
----
+How to Run
 
-## How to Run
+Windows:
 
-### Windows
-
-```bash
 java -cp ".;lib/sqlite-jdbc-3.53.0.0.jar" App
-```
 
-### macOS/Linux
+macOS/Linux:
 
-```bash
 java -cp ".:lib/sqlite-jdbc-3.53.0.0.jar" App
-```
 
----
+Sample Program Output
 
-## Sample Program Output
-
-```text
 Week 4 Project - Bank Database Application
+
 Mikayla Dickerson
+
 This program stores bank accounts using SQLite.
+
 You can create, view, update, and delete accounts.
 
 --- MENU ---
-1. Add Account
-2. View Accounts
-3. Deposit
-4. Withdraw
-5. Delete Account
-6. Exit
-```
 
----
+Add Account
+View Accounts
+Deposit
+Withdraw
+Delete Account
+Exit
 
-## Example Usage
+Example Usage
 
-### Add an Account
+To add an account, select option 1, enter the owner's name, enter the starting balance, and enter the account type as either Checking or Savings.
 
-1. Select option `1`
-2. Enter the owner's name
-3. Enter the starting balance
-4. Enter the account type (`Checking` or `Savings`)
+To deposit funds, select option 3, enter the account ID, and enter the deposit amount.
 
-### Deposit Funds
+To withdraw funds, select option 4, enter the account ID, and enter the withdrawal amount.
 
-1. Select option `3`
-2. Enter the account ID
-3. Enter the deposit amount
+To delete an account, select option 5 and enter the account ID.
 
-### Withdraw Funds
+Learning Objectives
 
-1. Select option `4`
-2. Enter the account ID
-3. Enter the withdrawal amount
+This project demonstrates Java class design, abstract classes and interfaces, inheritance and method overriding, database programming with JDBC, CRUD operations, and user input handling with Scanner.
 
-### Delete an Account
+Known Limitations
 
-1. Select option `5`
-2. Enter the account ID
+Withdrawals made directly through the database do not validate available funds. Input validation is minimal. Monthly update methods are not currently called by the menu. Database resources are not explicitly closed.
 
----
+Possible Enhancements
 
-## Learning Objectives
+Future improvements include adding input validation for invalid menu entries, preventing overdrafts in the database layer, adding account search by owner name, adding transfers between accounts, closing database connections safely, and implementing monthly updates through a menu option.
 
-This project was created to demonstrate:
-
-* Java class design
-* Abstract classes and interfaces
-* Inheritance and method overriding
-* Database programming with JDBC
-* CRUD operations
-* User input handling with `Scanner`
-
----
-
-## Known Limitations
-
-* Withdrawals made directly through the database do not validate available funds.
-* Input validation is minimal.
-* Monthly update methods are not currently called by the menu.
-* Database resources are not explicitly closed.
-
----
-
-## Possible Enhancements
-
-* Add input validation for invalid menu entries
-* Prevent overdrafts in the database layer
-* Add account search by owner name
-* Add transfer between accounts
-* Close database connections safely
-* Implement monthly updates through a menu option
-
----
-
-## License
+License
 
 This project was created for educational purposes as part of a Java programming course.
 
----
+Contact
 
-## Contact
-
-**Mikayla Dickerson**
+Mikayla Dickerson
 
 For questions about this project, contact the author through your course platform or GitHub repository.
